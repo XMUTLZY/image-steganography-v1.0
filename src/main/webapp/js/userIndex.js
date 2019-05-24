@@ -83,7 +83,7 @@ function generate(){
         },
         dataType:'html',
         success:function (result) {
-            layer.msg("")
+            layer.msg("信息藏入成功");
         },
     })
 }
