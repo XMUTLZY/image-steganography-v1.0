@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.User_payMapper">
+    <insert id="add" parameterType="User_pay">
+        insert into user_pay(phone,orginalImage,inputInfo,resultImage1,resultImage2,money,pay_time,star,evaluate,evaluate_time) values
+        (#{phone},#{orginalImage},#{inputInfo},#{resultImage1},#{resultImage2},#{money},#{pay_time},#{star},#{evaluate},#{evaluate_time})
+    </insert>
+
+    <select id="get" parameterType="_int" resultType="User_pay">
+        select * from user_pay where phone = #{phone}
+    </select>
+
+    <update id="update" parameterType="User_pay" >
+        update user_pay set orginalImage=#{orginalImage},inputInfo=#{inputInfo} where phone=#{phone}
+    </update>
+
+    <select id="list" resultType="User_pay">
+	    select * from user_pay
+	</select>
+
+    <delete id="delete" parameterType="User_pay">
+        delete from user_pay where id = #{id}
+    </delete>
+</mapper>
+

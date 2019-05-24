@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.UserMapper">
+    <insert id="add" parameterType="User">
+        insert into user(phone,code,password,name,sex,city,email,company,career,wealth,image) values
+        (#{phone},#{code},#{password},#{name},#{sex},#{city},#{email},#{company},#{career},#{wealth},#{image})
+    </insert>
+
+    <select id="get" parameterType="_int" resultType="User">
+        select * from user where phone = #{phone}
+    </select>
+
+    <update id="update" parameterType="User">
+        update user set code=#{code},password=#{password},name=#{name} where phone=#{phone}
+    </update>
+
+    <select id="list" resultType="User">
+	    select * from user
+	</select>
+
+    <delete id="delete" parameterType="User">
+        delete from user where id = #{id}
+    </delete>
+
+    <!-- 登录验证 -->
+    <select id="loginCheck" parameterType="User" resultType="User">
+        select * from user where phone = #{phone} and password = #{password}
+    </select>
+    <!-- 用户查询 -->
+    <select id="userSearch" parameterType="_int" resultType="User">
+        select * from user
+        <where>
+            <if test="email != null and email!=''">
+                And email like CONCAT(CONCAT('%',#{email},'%'))
+            </if>
+            <if test="name != null and name!=''">
+                And name like CONCAT(CONCAT('%',#{name},'%'))
+            </if>
+            <if test="phone != null and phone!=''">
+                And phone like CONCAT(CONCAT('%',#{phone},'%'))
+            </if>
+        </where>
+    </select>
+    <!-- 修改用户信息 -->
+    <update id="userUpdate" parameterType="User">
+        update user set phone=#{phone},password=#{password},name=#{name},city=#{city},email=#{email},
+         company=#{company},career=#{career} where phone=#{phone}
+    </update>
+</mapper>
+
