@@ -1,10 +1,12 @@
-<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="multipart/form-data;charset=utf-8" />
     <title>图像隐写在线服务平台</title>
     <link rel="stylesheet" href="layui/css/layui.css" media="all">
+    <link rel="shortcut icon" href="#" />
     <script src="jquery/2.0.0/jquery.min.js"></script>
+    <script src="js/jquery.session.js"></script>
+    <script src="js/getUrlParams.js"></script>
     <script src="template.js-master/template.js-master/template.js"></script>
 </head>
 <body style="text-align: center;">
@@ -81,17 +83,13 @@
         <div class="layui-col-md5">
             <div class="result" style="height: 1000px;width: 100%;background: white;">
                 <div class="right-result1" style="width: 100%;height: 45%;border-bottom: 1px solid darkgray;">
-                    <div id="resultImage1" style="width: 80%;height: 88%;margin: 25px 50px;background: black;float: left">
-
-                    </div>
+                    <img id="resultImage1" oncontextmenu="return false;" onselectstart="return false;" style="width: 80%;height: 88%;margin: 25px 50px;float: left">
                 </div>
                 <div class="right-result2" style="width: 100%;height: 45%;border-bottom: 1px solid darkgray;">
-                    <div id="resultImage2" style="width: 80%;height: 88%;margin: 25px 50px;background: black;float: left">
-
-                    </div>
+                    <img id="resultImage2" oncontextmenu="return false;" onselectstart="return false;" style="width: 80%;height: 88%;margin: 25px 50px;float: left">
                 </div>
                 <div class="right-btn2" style="width: 100%;height: 10%;">
-                    <button class="layui-btn layui-btn-normal" id="btn_buy" style="margin: 33px auto;">购买并下载</button>
+                    <button class="layui-btn layui-btn-normal" name="btn_buy" id="btn_buy" style="margin: 33px auto;">购买并下载</button>
                 </div>
             </div>
         </div>
@@ -108,6 +106,7 @@
     </div>
     <!-- 隐藏原始图片地址 -->
     <input type="hidden" name="orginalImage" id="orginalImage">
+
 </div>
 
 <script id="name_temp" type="text/html">

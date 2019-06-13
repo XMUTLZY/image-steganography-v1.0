@@ -136,7 +136,7 @@ public class UserController {
         list = userService.list();
         //使用fastjson 对 对象数组进行转换
         String jsonlist = JSONObject.toJSONString(list);
-        jsonlist = "{\"code\":0,\"msg\":\"\",\"count\":1000,\"data\":"+jsonlist+"}";
+        jsonlist = "{\"code\":0,\"msg\":\"\",\"count\":"+list.size()+",\"data\":"+jsonlist+"}";
         return jsonlist;
     }
     /*

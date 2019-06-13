@@ -92,7 +92,29 @@
                 <a class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del">删除</a>
             </script>
         </div>
-
+        <!-- 订单列表 -->
+        <div class="layui-hide" style="padding: 15px;" id="user2">
+            <div class="layui-form" action="userselect">
+                手机号
+                <div class="layui-inline">
+                    <input class="layui-input" name="payPhone" id="payPhone" autocomplete="off" onkeyup="">
+                </div>
+                订单号
+                <div class="layui-inline">
+                    <input class="layui-input" name="payNumber" id="payNumber" autocomplete="off" onkeyup="">
+                </div>
+                满意度
+                <div class="layui-inline">
+                    <input class="layui-input" name="payStar" id="payStar" autocomplete="off" onkeyup="">
+                </div>
+                <button class="layui-btn" data-type="reload" onclick="">搜索</button>
+            </div>
+            <table id="demo3" lay-filter="user1"></table>
+            <script type="text/html" id="operate3">
+                <a class="layui-btn layui-btn-sm layui-btn-normal" lay-event="edit">编辑</a>
+                <a class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del">删除</a>
+            </script>
+        </div>
         <!-- 管理员列表 -->
         <div class="layui-hide" style="padding: 15px;" id="admin1">
             <div class="layui-form">

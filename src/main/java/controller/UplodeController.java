@@ -16,14 +16,14 @@ import java.util.UUID;
 @RequestMapping("")
 public class UplodeController {
     /*
-    * 用户上传图片获取路径到前台
-    * */
+     * 用户上传图片获取路径到前台
+     * */
     @RequestMapping(value = "imageUrl", method = {RequestMethod.POST})
     public Map<String,Object> imageUrl(MultipartFile test1, HttpServletRequest request, HttpServletResponse response) {
         //目标文件夹（服务器）
         //String url = request.getSession().getServletContext().getRealPath("/images");
         //目标文件夹（本地）
-        String url = "F:\\study\\jee\\idea_WorkSpace\\VueStudy\\src\\main\\webapp\\images";
+        String url = "F:\\study\\jee\\idea_WorkSpace\\VueStudy\\src\\main\\webapp\\images\\orginalImage\\";
         //原始图片名称
         String originalName = test1.getOriginalFilename();
         /**

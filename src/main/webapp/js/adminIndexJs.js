@@ -69,6 +69,7 @@ function user1() {
         var table = layui.table;
         $("#user1").removeClass('layui-hide');
         $("#admin1").addClass('layui-hide');
+        $("#user2").addClass('layui-hide');
         //第一个实例
         table.render({
             elem: '#demo'
@@ -120,7 +121,6 @@ function user1() {
                     success: function (result) {
                         var string = JSON.stringify(result);//将json转化成字符串
                         var jsonlist = eval('(' + string + ')');//解析json
-                        alert(jsonlist.name);
                         layer.open({
                             type: 1,
                             title: '修改用户信息',
@@ -320,17 +320,27 @@ function updateUser1() {
 function user2() {
     layui.use('table', function () {
         var table = layui.table;
+        $("#user2").removeClass('layui-hide');
+        $("#admin1").addClass('layui-hide');
+        $("#user1").addClass('layui-hide');
         //第一个实例
         table.render({
-            elem: '#demo'
+            elem: '#demo3'
             , height: 500
-            , url: 'userList' //数据接口
+            , url: 'payList' //数据接口
             , page: true //开启分页
             , cols: [[ //表头
                 {field: 'id', title: 'ID', width: 70, sort: true, fixed: 'left'}
                 , {field: 'phone', title: '手机号', width: 120}
-                , {field: 'code', title: '验证码', width: 70}
-                , {field: 'password', title: '密码', width: 150}
+                , {field: 'orginalImage', title: '原始图片', width: 100,templet:function (d) {
+                        return '<div onclick="show_img(this)" ><img src="'+d.orginalImage+'" alt="" width="50px" height="50px"></a></div>';
+                    }}
+                , {field: 'inputInfo', title: '藏入信息', width: 110}
+                , {field: 'money', title: '已付金额', width: 105}
+                , {field: 'pay_time', title: '订单号', width: 145}
+                , {field: 'star', title: '满意度', width: 80}
+                , {field: 'evaluate', title: '评价', width: 140}
+                , {field: 'evaluate_time', title: '评价时间', width: 105}
                 , {field: 'operate', title: '操作', width: 147, toolbar: "#operate"}
             ]]
         });
@@ -345,6 +355,7 @@ function admin1() {
         var table = layui.table;
         $("#admin1").removeClass('layui-hide');
         $("#user1").addClass('layui-hide');
+        $("#user2").addClass('layui-hide');
         //第一个实例
         table.render({
             elem: '#demo2'
@@ -411,5 +422,23 @@ function addAdmin1() {
             "    </div>\n" +
             "  </div>\n" +
             "</div>\n"
+    });
+}
+
+/*
+* 显示大图片
+* */
+function show_img(t) {
+    var t = $(t).find("img");
+    //页面层
+    layer.open({
+        type: 1,
+        skin: 'layui-layer-rim', //加上边框
+        area: ['80%', '80%'], //宽高
+        shadeClose: true, //开启遮罩关闭
+        end: function (index, layero) {
+            return false;
+        },
+        content: '<div style="text-align:center"><img src="' + $(t).attr('src') + '" /></div>'
     });
 }

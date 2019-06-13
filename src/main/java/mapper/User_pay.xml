@@ -10,11 +10,11 @@
     </insert>
 
     <select id="get" parameterType="_int" resultType="User_pay">
-        select * from user_pay where phone = #{phone}
+        select * from user_pay where phone = #{phone} and orginalImage=#{orginalImage}
     </select>
 
     <update id="update" parameterType="User_pay" >
-        update user_pay set orginalImage=#{orginalImage},inputInfo=#{inputInfo} where phone=#{phone}
+        update user_pay set phone=#{phone},pay_time=#{pay_time},inputInfo=#{inputInfo},money=#{money} where orginalImage=#{orginalImage}
     </update>
 
     <select id="list" resultType="User_pay">
