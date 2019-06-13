@@ -2,10 +2,37 @@
 * 登录逻辑实现
 * */
 phone = '未登录';
-phone = window.location.href;
-var twodata = phone.split("="); //截取 url中的“=”,获得“=”后面的参数
-phone = decodeURI(twodata[1]); //decodeURI解码
-if(phone=="undefined"){
+phone = $.session.get("userPhone"); //获取手机号
+orginalImage = $.session.get("orginalImage");//获取原始图片
+money = $.getUrlParam("total_amount");//获取金额
+time = $.getUrlParam("out_trade_no");//获取订单时间及订单号
+/*
+* 发送订单金额到后台中保存
+* */
+$.ajax({
+    url:'setMoney',
+    type:'post',
+    data:{
+        phone:phone,
+        money:money,
+        time:time,
+        orginalImage:orginalImage
+    },
+    success:function (result) {
+        //下载图片
+        var a = document.createElement('a');
+        var b = document.createElement('a');
+        var event = new MouseEvent('click');
+        var event2 = new MouseEvent('click');
+        a.download = 'image1';
+        b.download = 'image2'
+        a.href = result.image1;
+        b.href = result.image2
+        a.dispatchEvent(event);
+        b.dispatchEvent(event2);
+    }
+})
+if(typeof(phone)=="undefined"){
     logOrre = '登录/注册';
     phone = '未登录';
     link = 'userLogin.html';
@@ -43,6 +70,7 @@ layui.use('element', function () {
 * */
 function isLogout(){
     if(logOrre == '退出登录'){
+        $.session.remove("userPhone");
         logOrre = '登录/注册';
         phone = '未登录';
         link = 'userLogin.html';
@@ -69,10 +97,14 @@ $("#btn_generate").click(function (){
     if(phone=='未登录'){
         layer.msg('请您先登录哦！')
     }else{
+        flag = true;
+        //将原始图片存在session中
+        $.session.set("orginalImage",$("#orginalImage").val());
         generate();
     }
 })
 function generate(){
+    index = layer.load();//进度圈
     $.ajax({
         url:'addInfo',
         type: 'post',
@@ -81,9 +113,32 @@ function generate(){
             phone:phone,
             inputInfo:$("#inputInfo").val()
         },
-        dataType:'html',
         success:function (result) {
-            layer.msg("信息藏入成功");
-        },
+            string = JSON.stringify(result);
+            jsonlist = eval('('+string+')');
+            resultl = result.result1;
+            result2 = result.result2;
+            $("#resultImage1").attr('src',resultl);
+            $("#resultImage2").attr('src',result2);
+            layer.close(index);//关闭进度圈
+            layer.msg('信息藏入成功');
+        }
     })
 }
+/*
+* 监听"购买并下载"按钮
+* */
+$("#btn_buy").click(function () {
+    if(phone=='未登录'){
+        layer.msg('请您先登录哦！')
+    } if(flag&&phone!='未登录'){
+        layer.open({
+            type: 2,
+            title: '支付宝',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['100%', '80%'],
+            content: 'QRcode.jsp' //iframe的url
+        });
+    }
+})
